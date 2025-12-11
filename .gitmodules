@@ -1,0 +1,3 @@
+[submodule "TouhouOML.git"]
+	path = TouhouOML
+	url = https://github.com/TouhouOML/TouhouOML.git
