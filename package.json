@@ -1,13 +1,13 @@
 {
   "name": "thsource",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.config.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["userscript", "touhou"],
+  "author": "niconiconi",
+  "license": "BSD-1-Clause",
   "description": "",
   "devDependencies": {
     "js-toml": "^1.0.2",
