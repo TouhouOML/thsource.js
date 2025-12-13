@@ -8,6 +8,10 @@ function inIframe() {
 }
 
 // Listen for messages from the injected monkey patch
+window.addEventListener('load', function() {
+  playHook(true);
+}, false);
+
 window.addEventListener('message', function(event) {
   if (event.origin !== window.location.origin) {
     // verify origin for security
@@ -16,12 +20,12 @@ window.addEventListener('message', function(event) {
 
   if (event.data.type === 'THSOURCE_MONKEYPATCH') {
     console.log('Received from page:', event.data.payload);
-    playHook();
+    playHook(false);
   }
 });
 
 // Execute when a soundtrack starts playing
-function playHook() {
+function playHook(preload) {
   console.log("thsource: playing now!");
 
   let pageParserClass = null;
@@ -39,6 +43,11 @@ function playHook() {
     console.log(albumPage);
     matchWebpageToTrackArray(albumPage).then((match) => {
       console.log(match);
+      if (preload) {
+        // Don't find the playing soundtrack because we have none.
+        return;
+      }
+
       const desc = touhouOml.searchDesc(
         match[albumPage.getCurrentTrackIdx()].get("original-title")[0]
       );

@@ -20,9 +20,6 @@ This is an early prototype with more problems than features.
 3. The soundtrack matching logic is currently very broken, and fail to
    match many soundtracks.
 
-4. It requests the API repetitively per play, which shouldn't happen.
-   Information about the whole album should be pre-requested.
-
 5. Need a fallback in-page popup window if system notification API is
    unavailable.
 
