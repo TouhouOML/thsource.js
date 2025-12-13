@@ -1,7 +1,20 @@
 const THBWIKI_API = "https://thwiki.cc/album.php?";
 
 export class ThbwikiApi {
-  static async queryAlbum(albumTitle) {
+  #albumCache;
+  #tracksCache;
+
+  constructor() {
+    this.#albumCache = new Map();
+    this.#tracksCache = new Map();
+  }
+
+  async queryAlbum(albumTitle) {
+    if (this.#albumCache.has(albumTitle)) {
+      console.log("queryAlbum cache hit!")
+      return this.#albumCache.get(albumTitle);
+    }
+
     const albumParams = new URLSearchParams({
         m: 'sa',          // search album
         d: "nm",          // return n results as arr[n] = [id, title]
@@ -31,10 +44,16 @@ export class ThbwikiApi {
 
       albumArray.push(item);
     }
+    this.#albumCache.set(albumTitle, albumArray);
     return albumArray;
   }
 
-  static async queryTracks(albumSmwid) {
+  async queryTracks(albumSmwid) {
+    if (this.#tracksCache.has(albumSmwid)) {
+      console.log("queryTracks cache hit!")
+      return this.#tracksCache.get(albumSmwid);
+    }
+
     const trackParams = new URLSearchParams({
       m: '2',              // search soundtracks in album
       d: "nm",             // return n results as arr[n] = [id, title]
@@ -64,14 +83,15 @@ export class ThbwikiApi {
 
       for (const kv of rawTrack) {
         let key = kv[0];
-	if (key in paramMap) {
+        if (key in paramMap) {
           key = paramMap[key];
-	}
+        }
         trackMap.set(key, kv[1]);
       }
       trackArray.push(trackMap);
     };
 
+    this.#tracksCache.set(albumSmwid, trackArray);
     return trackArray;
   }
 }

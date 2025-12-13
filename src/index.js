@@ -53,7 +53,7 @@ async function matchWebpageToTrackArray(albumPage) {
   const artist = albumPage.getArtist()["name"];
   const tracks = albumPage.getTracks();
 
-  const albumCandidateArray = await ThbwikiApi.queryAlbum(albumPage.getName());
+  const albumCandidateArray = await thbwiki.queryAlbum(albumPage.getName());
   if (albumCandidateArray.length == 0) {
     console.log(`${name} by ${artist} -> not found!`);
     return [];
@@ -61,7 +61,7 @@ async function matchWebpageToTrackArray(albumPage) {
 
   console.log(`Album: ${name} by ${artist} -> `);
   console.log(albumCandidateArray[0]);
-  const albumTrackArray = await ThbwikiApi.queryTracks(
+  const albumTrackArray = await thbwiki.queryTracks(
     albumCandidateArray[0].get("smwid")
   );
 
@@ -125,8 +125,11 @@ function injectScripttoDom() {
 }
 
 let touhouOml = null;
+let thbwiki = null;
 if (!inIframe()) {
   touhouOml = new TouhouOML();
+  thbwiki = new ThbwikiApi();
+
   injectScripttoDom();
   console.log("thsource.js: script injected!!!");
 
