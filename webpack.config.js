@@ -28,7 +28,7 @@ module.exports = {
         version: '0.0.1',
 	author: 'niconiconi',
 	'run-at': 'document-start',
-	grant: 'GM_notification',
+	grant: 'GM.notification',
       },
       pretty: true,
       strict: true,

@@ -95,7 +95,7 @@ function showNotif(work, track)
   notifDesc += `${track["context"]["scenario-list"]["zh-hans"][0]}\n`;
   notifDesc += `${track["context"]["character-list"]["zh-hans"][0]}`;
 
-  GM_notification({
+  GM.notification({
     title: notifTitle, text: notifDesc
   });
 }
@@ -112,6 +112,8 @@ function showNotif(work, track)
 // window.postMessage().
 function monkeyPatch() {
   // monkey-patch window.Audio before page load
+  document._thsource_audioArray = [];
+
   Audio.prototype.origPlay = Audio.prototype.play
   Audio.prototype.play = function() {
     console.log("thsource - audio: play!");
@@ -132,7 +134,6 @@ function injectScripttoDom() {
   let script = document.createElement('script');
   script.appendChild(document.createTextNode('('+ monkeyPatch +')();'));
   (document.body || document.head || document.documentElement).appendChild(script);
-  document._thsource_audioArray = [];
 }
 
 let touhouOml = null;
