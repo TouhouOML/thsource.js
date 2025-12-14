@@ -27,7 +27,8 @@ module.exports = {
         description: 'Show Touhou original soundtrack information',
         version: '0.0.1',
 	author: 'niconiconi',
-	'run-at': 'document-start'
+	'run-at': 'document-start',
+	grant: 'GM_notification',
       },
       pretty: true,
       strict: true,

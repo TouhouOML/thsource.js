@@ -95,7 +95,9 @@ function showNotif(work, track)
   notifDesc += `${track["context"]["scenario-list"]["zh-hans"][0]}\n`;
   notifDesc += `${track["context"]["character-list"]["zh-hans"][0]}`;
 
-  new Notification(notifTitle, { body: notifDesc });
+  GM_notification({
+    title: notifTitle, text: notifDesc
+  });
 }
 
 // Inject the monkey patch into DOM
